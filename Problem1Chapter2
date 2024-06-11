@@ -1,0 +1,12 @@
+A= "All"
+B= "work"
+C= "and"
+D= "no"
+E= "play"
+F= "makes"
+G= "Jack"
+H= "a"
+I= "dull"
+J= "boy."
+
+print(A + B + C + D + E + F + G + H + I + J)
