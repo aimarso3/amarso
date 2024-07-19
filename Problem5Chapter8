@@ -1,0 +1,31 @@
+import string
+
+# Define your favorite paragraph of text as a triple-quoted string
+favorite_text = """
+How about a pair of pink sidewinders
+And a bright orange pair of pants?
+You could really be a Beau Brummel baby
+If you just give it half a chance.
+"""
+
+def analyze_text(text):
+    # Remove punctuation from the text
+    text = text.translate(str.maketrans('', '', string.punctuation))
+
+    # Split the text into a list of words
+    words = text.split()
+
+    # Count the total number of words
+    total_words = len(words)
+
+    # Count the number of words containing the letter "e"
+    words_with_e = sum(1 for word in words if 'e' in word.lower())
+
+    # Calculate the percentage of words containing "e"
+    percentage_with_e = (words_with_e / total_words) * 100
+
+    # Print the analysis
+    print(f'Your text contains {total_words} words, of which {words_with_e} ({percentage_with_e:.1f}%) contain an "e".')
+
+# Call the function with your favorite paragraph of text
+analyze_text(favorite_text)
