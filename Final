@@ -1,0 +1,200 @@
+'''
+Name: Ava Marso
+Due Date: 07/19/2024
+
+
+This program will run a playable game of Hangman.
+
+
+Step 1: Program will greet the player.
+Step 2: Program will read the list of words from the words.txt file.
+Step 3: Program will choose a random word from the list.
+Step 4: Program will start asking the player to guess the word one character at a time until the player wins or runs out of predefined number of tries.
+Step 5: Program game continues until the player wants to quit.
+'''
+#Step 1:
+def greeting():
+    print(f"Welcome to Hangman!")
+    firstname= input(f"What is your first name? ")
+    lastname= input(f"Hello {firstname}, what is your last name? ")
+    fullname= firstname + " " + lastname
+    print(f"Hello {fullname}, I am thinking of a random english word. Take a guess!")
+    return fullname
+
+
+#Step 2:
+def randomword():
+    import random
+    word_list = []
+    file = open("Assignments/stdio/Final/words.txt")
+    word_line = file.readlines()
+    for line in word_line:
+        word_list.append(line.strip())
+    #Step 3:
+    word = random.choice(word_list)
+    return word
+
+
+def stage0():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+def stage1():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |         O      ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+def stage2():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |         O      ")
+    print ("      |         |      ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+def stage3():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |         O      ")
+    print ("      |        /|      ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+def stage4():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |         O      ")
+    print ("      |        /|\     ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+def stage5():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |         O      ")
+    print ("      |        /|\     ")
+    print ("      |        /       ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+def stage6():
+    print ("      |__________      ")
+    print ("      |/        |      ")
+    print ("      |         O      ")
+    print ("      |        /|\     ")
+    print ("      |        / \     ")
+    print ("      |                ")
+    print ("      |                ")
+    print ("-------------          ")
+
+
+#Step 4:
+def hangman(word):
+
+
+    letters = ""
+    letterlist = letters
+    failures = 6
+    while (failures > 0):
+        print(f"Letters already guessed: {letterlist}")
+        guess = input(f"The word is {len(word)} letters long. Please enter a letter: ").lower()
+        if (guess.isalpha() == False):
+            print(f"You did not enter a valid character.")
+        elif (len(guess) != 1):
+            if (guess == word):
+                print(f"Congratulations! You guessed my word: {word}. It took you {len(letterlist)} letter guesses to get the answer.")
+                break
+            else:
+                failures -= 1
+                print(f"{guess} was not the word. You have {failures} chance/s left.")
+                guess = guess.replace(f'{guess}', '')
+        else:
+            if (guess in word):
+                if (guess in letters):
+                    print(f"You already guessed the letter {guess}.")
+                else:
+                    print(f"Good Guess! The letter {guess} is in my word. You have {failures} chance/s left.")
+            else:
+                if (guess in letters):
+                    print(f"You already guessed the letter {guess}.")
+                else:
+                    failures -= 1
+                    print(f"There is no letter {guess} in my word. You have {failures} chance/s left.")
+        letters = guess + letters
+        letterlist = list(set(letters))
+
+
+        if (failures == 6):
+            stage0()
+        elif (failures == 5):
+            stage1()
+        elif (failures == 4):
+            stage2()
+        elif (failures == 3):
+            stage3()
+        elif (failures == 2):
+            stage4()
+        elif (failures == 1):
+            stage5()
+        elif (failures == 0):
+            stage6()
+
+
+        dashes = 0
+        for i in word:
+            if (i in letters):
+                print(f"{i}", end="")
+            else:
+                dashes += 1
+                print("_", end="")
+        print("\n")
+        if (dashes == 0):
+            print(f"Congratulations! My word was: {word}. It took you {len(letterlist)} letter guesses to get the answer.")
+            break
+
+
+    else:
+        print(f"Better luck next time! My word was: {word}.")
+
+
+#Step 5:
+def playagain(fullname):
+    choice = input(f"Would you like to play again? Enter [y/n]: ")
+    if (choice == "y"):
+        main()
+    else:
+        print(f"Until next time, {fullname}!")
+        quit()
+
+
+def main():
+    fullname = greeting()
+    word = randomword()
+    hangman(word)
+    playagain(fullname)
+if __name__ == "__main__":
+    main( 
